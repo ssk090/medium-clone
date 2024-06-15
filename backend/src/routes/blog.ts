@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { verify } from "hono/jwt";
+import { blogSchema, updateBlogSchema } from "@shivanandasai/common";
 
 export const blogRouter = new Hono<{
   Bindings: {
@@ -35,14 +36,21 @@ blogRouter.post("/", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const body = await c.req.json();
   const authorId = c.get("userId");
+
+  const body = await c.req.json();
+  const { success } = blogSchema.safeParse(body);
+
+  if (!success) {
+    c.status(400);
+    return c.json({ error: "invalid request body" });
+  }
 
   const blog = await prisma.blog.create({
     data: {
       title: body.title,
       content: body.content,
-      authorId, // get the author id from the jwt payload
+      authorId,
     },
   });
 
@@ -57,6 +65,12 @@ blogRouter.put("/", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
+  const { success } = updateBlogSchema.safeParse(body);
+
+  if (!success) {
+    c.status(400);
+    return c.json({ error: "invalid request body" });
+  }
 
   const blog = await prisma.blog.update({
     where: {

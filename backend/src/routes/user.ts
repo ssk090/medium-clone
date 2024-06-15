@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
+import { userSchema } from "@shivanandasai/common";
 
 export const userRouter = new Hono<{
   Bindings: {
@@ -17,7 +18,13 @@ userRouter.post("/signup", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  // TODO: add zod validation
+  const { success } = userSchema.safeParse(body);
+
+  if (!success) {
+    c.status(400);
+    return c.json({ error: "invalid request body" });
+  }
+
   try {
     const user = await prisma.user.create({
       data: {
@@ -45,7 +52,12 @@ userRouter.post("/signin", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  // TODO: add zod validation
+  const { success } = userSchema.safeParse(body);
+
+  if (!success) {
+    c.status(400);
+    return c.json({ error: "invalid request body" });
+  }
   try {
     const user = await prisma.user.findUnique({
       where: {
