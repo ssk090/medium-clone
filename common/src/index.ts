@@ -1,7 +1,14 @@
 import z from "zod";
 
-// User Zod schema
-export const userSchema = z.object({
+// User Signup Zod schema
+export const userSignupSchema = z.object({
+  name: z.string().min(3),
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+// User Signin Zod schema
+export const userSigninSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
@@ -19,6 +26,7 @@ export const updateBlogSchema = z.object({
   content: z.string(),
 });
 
-export type User = z.infer<typeof userSchema>;
+export type UserSignin = z.infer<typeof userSigninSchema>;
+export type UserSignup = z.infer<typeof userSignupSchema>;
 export type Blog = z.infer<typeof blogSchema>;
 export type UpdateBlog = z.infer<typeof updateBlogSchema>;

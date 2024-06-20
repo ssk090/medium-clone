@@ -113,10 +113,10 @@
   dependencies:
     "@prisma/debug" "5.15.0"
 
-"@shivanandasai/common@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@shivanandasai/common/-/common-1.0.0.tgz"
-  integrity sha512-TG8eTuyt2FCz4psrGbQwR0tSzC3SxpPeOQ5Q5GDhxqVFPUugMeKXcaZ3FJPteRz7z0xzrz6qJ4faBLcbhBRm1Q==
+"@shivanandasai/common@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@shivanandasai/common/-/common-1.0.2.tgz"
+  integrity sha512-I4iaooAgFULm23q43jzHYWVVLZXsiuV2y9WdCkrfYUFoM5YbXR9SB+foHZhKK3WKCOKl2zAGydlYYW6DLEqm+A==
   dependencies:
     zod "^3.23.8"
 
