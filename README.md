@@ -1,4 +1,5 @@
 # medium-clone
+![image](https://github.com/ssk090/medium-clone/assets/22127725/138691c4-9b99-4874-bd64-9fb15df01783)
 
 ## Tech Stack
 
