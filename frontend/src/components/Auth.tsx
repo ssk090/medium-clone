@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import LabelledInput from "./LabelledInput";
 import { useState } from "react";
-import { User } from "@shivanandasai/common";
+import { UserSignin } from "@shivanandasai/common";
 import Button from "./Button";
 import axios from "axios";
 import { BACKEND_URL } from "../helper/config";
 
 export const Auth = ({ type }: { type: "signin" | "signup" }) => {
   const navigate = useNavigate();
-  const [postInputs, setPostInputs] = useState<User>({
+  const [postInputs, setPostInputs] = useState<UserSignin>({
     email: "",
     password: "",
   });
